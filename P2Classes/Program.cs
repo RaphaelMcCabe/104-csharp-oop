@@ -1,23 +1,36 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Threading.Channels;
 Console.WriteLine("Hello, World!");
 
-Class person = new Class();
-Class animal = new Class();
-Class car = new Class();
+Person[] person = new Person[3];
+Animal animal = new Animal();
+Car car = new Car();
+int i;
 
-person.name = "Person";
-animal.name = "Animal";
-car.name = "Car";
+Console.WriteLine(person);
+Console.WriteLine(animal);
+Console.WriteLine(car);
 
-person.Call();
-animal.Call();
-car.Call();
-public class Class
+for ( i = 0; i < person.Length; i++)
+    
 {
-    public string name;
+    person[i] = new Person();
+    Console.WriteLine("Tell me a persons name");
+    person[i].names = Console.ReadLine();
+}
 
-    public void Call()
+for ( i = 0; i < person.Length; i++)
+{
+    person[i].IntroduceYourself();
+}
+public class Person
+{
+    public void IntroduceYourself()
     {
-        Console.WriteLine(name);
+        Console.WriteLine($"Hello my name is {names}");
     }
-    }
+    public string names;
+}
+public class Animal{}
+public class Car{}
+
