@@ -1,5 +1,4 @@
-﻿
-Unit unit = new Unit("Skeleton", 100);
+﻿Unit unit = new Unit("Skeleton", 100);
 Unit unit2 = new Unit("Demon", 100);
 Unit unit3 = new Unit("Ghost",100);
 Unit unit4 = new Unit("Leet", 1337);
@@ -7,14 +6,16 @@ unit.ReportStatus();
 unit2.ReportStatus();
 unit3.ReportStatus();
 unit4.ReportStatus();
-public class Unit
+
+
+    public class Unit
 {
     private int maxHealth;
     private int health;
     public int id;
     public static int nextID;
     string name;
-   
+
     public Unit(string name, int maxHealth)
     {
         this.name = name;
@@ -26,10 +27,8 @@ public class Unit
 
     public int Health
     {
-        set
+        private set
         {
-            Console.WriteLine("Set health");
-            health = Convert.ToInt32(Console.ReadLine());
             if (health < 0)
             {
                 health = 0;
@@ -45,15 +44,13 @@ public class Unit
             return health;
         }
     }
-   
-   
+    
     public void ReportStatus()
     {
-        Console.WriteLine($"{id}# {name} {health}/{maxHealth}");
-        Health;
-        Console.WriteLine($"{id}# {name} {health}/{maxHealth}");
-        
+        Console.WriteLine($"{id}# {name} {Health}/{maxHealth}");
     }
-
     
 }
+
+
+
