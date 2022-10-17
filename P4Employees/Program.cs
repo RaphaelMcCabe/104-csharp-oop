@@ -49,3 +49,4 @@ public void Print()
 {
     int salaryAfterTax = (int)(salary * (1 - tax));
 }
+oogg
