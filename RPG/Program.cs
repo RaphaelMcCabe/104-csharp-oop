@@ -9,7 +9,7 @@ necromancer.ReportStatus();
 
 while (necromancer.Health > 0 )
 {
-    Console.WriteLine("How much damage do you want to deal to the Necromancer");
+    Console.WriteLine("Deal damage to the Necromancer");
     necromancer.Damage(Convert.ToInt32(Console.ReadLine()));
     necromancer.ReportStatus();
 }
