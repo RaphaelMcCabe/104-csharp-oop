@@ -1,22 +1,31 @@
-﻿Unit unit = new Unit("Skeleton", 100);
-Unit unit2 = new Unit("Demon", 100);
-Unit unit3 = new Unit("Ghost",100);
-Necromancer necromancer = new Necromancer("Necromancer",200);
-unit.ReportStatus();
-unit2.ReportStatus();
-unit3.ReportStatus();
-necromancer.ReportStatus();
+﻿// Unit unit = new Unit("Skeleton", 100);
+// Unit unit2 = new Unit("Demon", 100);
+// Unit unit3 = new Unit("Ghost",100);
+// Necromancer necromancer = new Necromancer("Necromancer",200);
+// unit.ReportStatus();
+// unit2.ReportStatus();
+// unit3.ReportStatus();
+// necromancer.ReportStatus();
 
-while (necromancer.Health > 0 )
+Unit unit = SpawnNewUnit();
+while (unit.isAlive = true)
 {
-    Console.WriteLine("Deal damage to the Necromancer");
-    necromancer.TakeDamage(Convert.ToInt32(Console.ReadLine()));
-    necromancer.ReportStatus();
-    if (necromancer.IsDead == false)
-    {
-        Console.WriteLine("The Necromancer died for real!");
+    Console.WriteLine("A creature spawns!");
+}
+
+static Unit SpawnNewUnit()
+{
+    int number = Random.Shared.Next(minValue: 0, maxValue: 1);
+       
+    if(number == 0){
+        return new Necromancer("Necromancer", 200);
     }
-   
+    if(number == 1)
+    {
+        return new Unit("Monster", 100);
+    }
+
+    return SpawnNewUnit();
 }
 
 public class Necromancer : Unit
@@ -39,6 +48,12 @@ public class Necromancer : Unit
         {
             Ressurect();
         }
+
+        if (IsDead == false)
+        {
+            Console.WriteLine("The necromancer died for real!");
+        }
+        
     }
 }
 public class Unit
@@ -90,6 +105,8 @@ public class Unit
 
     public virtual void TakeDamage(int value)
     {
+        Console.WriteLine("How much damage will you deal?");
+        value = Convert.ToInt32(Console.ReadLine());
         Health -= value;
     }
 
