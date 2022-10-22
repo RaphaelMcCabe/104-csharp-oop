@@ -1,21 +1,55 @@
 ﻿Unit unit = new Unit("Skeleton", 100);
 Unit unit2 = new Unit("Demon", 100);
 Unit unit3 = new Unit("Ghost",100);
-Unit unit4 = new Unit("Leet", 1337);
+Necromancer necromancer = new Necromancer("Necromancer",200);
 unit.ReportStatus();
 unit2.ReportStatus();
 unit3.ReportStatus();
-unit4.ReportStatus();
+necromancer.ReportStatus();
 
-
-    public class Unit
+while (necromancer.Health > 0 )
 {
-    private int maxHealth;
-    private int health;
+    Console.WriteLine("Deal damage to the Necromancer");
+    necromancer.TakeDamage(Convert.ToInt32(Console.ReadLine()));
+    necromancer.ReportStatus();
+    if (necromancer.IsDead == false)
+    {
+        Console.WriteLine("The Necromancer died for real!");
+    }
+   
+}
+
+public class Necromancer : Unit
+{
+    private bool hasRessurected;
+    public void Ressurect()
+    {
+        Console.WriteLine("The Necromancer ressurects itself!");
+        hasRessurected = true;
+        health = maxHealth / 2;
+    }
+    public Necromancer(string name, int maxHealth) : base(name, maxHealth)
+    {
+        
+    }
+    public override void TakeDamage(int value)
+    {
+        base.TakeDamage(value);
+        if (Health == 0 && !hasRessurected)
+        {
+            Ressurect();
+        }
+    }
+}
+public class Unit
+{
+    protected int maxHealth;
+    protected int health;
     public int id;
     public static int nextID;
     string name;
-
+    public bool isAlive = true;
+    
     public Unit(string name, int maxHealth)
     {
         this.name = name;
@@ -23,20 +57,25 @@ unit4.ReportStatus();
         nextID++;
         this.maxHealth = maxHealth;
         health = maxHealth;
+        
     }
-
     public int Health
     {
         private set
         {
-            if (health < 0)
+            if (value < 0)
             {
                 health = 0;
             }
 
-            if (health > maxHealth)
+            if (value >= maxHealth)
             {
                 health = maxHealth;
+            }
+
+            if (value >= 0 && value <= maxHealth)
+            {
+                health = value;
             }
         }
         get
@@ -44,13 +83,26 @@ unit4.ReportStatus();
             return health;
         }
     }
-    
     public void ReportStatus()
     {
         Console.WriteLine($"{id}# {name} {Health}/{maxHealth}");
     }
-    
+
+    public virtual void TakeDamage(int value)
+    {
+        Health -= value;
+    }
+
+    public bool IsDead
+    {
+        get
+        {
+            if (Health == 0)
+            {
+                isAlive = false;
+                return false;
+            }
+            return true;
+        }
+    }
 }
-
-
-
