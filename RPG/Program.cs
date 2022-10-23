@@ -1,31 +1,101 @@
-﻿// Unit unit = new Unit("Skeleton", 100);
-// Unit unit2 = new Unit("Demon", 100);
-// Unit unit3 = new Unit("Ghost",100);
-// Necromancer necromancer = new Necromancer("Necromancer",200);
-// unit.ReportStatus();
-// unit2.ReportStatus();
-// unit3.ReportStatus();
-// necromancer.ReportStatus();
-
-Unit unit = SpawnNewUnit();
-while (unit.isAlive = true)
+﻿while (true)
 {
-    Console.WriteLine("A creature spawns!");
+    Unit unit = SpawnNewUnit();
+    while (unit.isAlive)
+    {
+        unit.ReportStatus();
+        Console.WriteLine("How much damage do you want to deal?");
+        unit.TakeDamage(Convert.ToInt32(Console.ReadLine()));
+    }
+    if (!unit.isAlive)
+    {
+        Console.WriteLine("The creature has died");
+    }
 }
-
 static Unit SpawnNewUnit()
 {
-    int number = Random.Shared.Next(minValue: 0, maxValue: 1);
+    Console.WriteLine("A creature spawns!");
+    int number = Random.Shared.Next(minValue: 0, maxValue: 4);
        
     if(number == 0){
         return new Necromancer("Necromancer", 200);
     }
     if(number == 1)
     {
-        return new Unit("Monster", 100);
+        return new Skeleton("Skeleton", 250);
+    }
+
+    if(number == 2)
+    {
+        return new Hedgehog("Hedgehog", 200);
+    }
+
+    if (number == 3)
+    {
+        return new Bomb("Bomb", 500);
     }
 
     return SpawnNewUnit();
+}
+
+public class Bomb : Unit
+{
+    private int timer = 5;
+    public Bomb(string name, int maxHealth) : base(name, maxHealth)
+    {}
+
+    public override void TakeDamage(int value)
+    {
+        base.TakeDamage(value);
+        {
+            if (timer <= 5)
+            {
+                Console.WriteLine($"The bomb will explode in {timer} turns");
+                timer--;
+            }
+
+            if (timer <= 0)
+            {
+                health = 0;
+                Console.WriteLine("The Bomb explodes!!!!!");
+            }
+        }
+    }
+}
+
+public class Hedgehog : Unit
+{
+    public int defenseMode;
+    
+    public Hedgehog(string name, int maxHealth) : base(name, maxHealth)
+    {}
+    public override void TakeDamage(int value)
+    {
+        if(defenseMode <= 0)
+        {
+            base.TakeDamage(value);
+            defenseMode = 2;
+            Console.WriteLine("The hedgehog goes into defense mode!!!");
+        }
+
+        else if (defenseMode > 0)
+        {
+            defenseMode--;
+            Console.WriteLine("The hedgehog is in defense mode :l!");
+            if (defenseMode == 0)
+            {
+                Console.WriteLine("The hedgehog has left defense mode :(");
+            }
+        }
+
+    }
+    
+}
+
+public class Skeleton : Unit
+{
+    public Skeleton(string name, int maxHealth) : base(name, maxHealth)
+    {}
 }
 
 public class Necromancer : Unit
@@ -39,7 +109,6 @@ public class Necromancer : Unit
     }
     public Necromancer(string name, int maxHealth) : base(name, maxHealth)
     {
-        
     }
     public override void TakeDamage(int value)
     {
@@ -48,23 +117,16 @@ public class Necromancer : Unit
         {
             Ressurect();
         }
-
-        if (IsDead == false)
-        {
-            Console.WriteLine("The necromancer died for real!");
-        }
-        
     }
 }
-public class Unit
+public abstract class Unit
 {
     protected int maxHealth;
     protected int health;
     public int id;
     public static int nextID;
     string name;
-    public bool isAlive = true;
-    
+
     public Unit(string name, int maxHealth)
     {
         this.name = name;
@@ -105,21 +167,21 @@ public class Unit
 
     public virtual void TakeDamage(int value)
     {
-        Console.WriteLine("How much damage will you deal?");
-        value = Convert.ToInt32(Console.ReadLine());
         Health -= value;
     }
 
-    public bool IsDead
+    public bool isAlive
     {
         get
         {
             if (Health == 0)
             {
-                isAlive = false;
                 return false;
             }
             return true;
         }
     }
 }
+
+
+
