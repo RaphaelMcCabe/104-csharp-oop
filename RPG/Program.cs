@@ -38,6 +38,14 @@ static Unit SpawnNewUnit()
     return SpawnNewUnit();
 }
 
+public class Hero : Unit
+{
+    public Hero(string name, int maxHealth) : base(name, maxHealth)
+    {
+    }
+}
+
+
 public class Bomb : Unit
 {
     private int timer = 5;
