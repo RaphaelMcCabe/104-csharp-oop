@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿while (true)
 {
     Unit unit = SpawnNewUnit();
@@ -85,6 +86,17 @@ public class Hedgehog : Unit
             defenseMode = 2;
             Console.WriteLine("The hedgehog goes into defense mode!!!");
         }
+=======
+﻿Unit unit = new Unit("Skeleton", 100);
+Unit unit2 = new Unit("Demon", 100);
+Unit unit3 = new Unit("Ghost",100);
+Unit unit4 = new Unit("Leet", 1337);
+
+unit.ReportStatus();
+unit2.ReportStatus();
+unit3.ReportStatus();
+unit4.ReportStatus();
+>>>>>>> Stashed changes
 
         else if (defenseMode > 0)
         {
